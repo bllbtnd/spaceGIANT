@@ -69,7 +69,7 @@ def main():
             padisplay = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
-            if PA_BUTTON.get_rect().collidepoint(x, y):
+            if PA_BUTTON.get_rect().collidepoint(x, y) and go == False:
                 run_count = 1
                 go = True
                 dtext = ""
