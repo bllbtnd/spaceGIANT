@@ -1,6 +1,7 @@
 import pygame
 import os
 import random
+
 pygame.font.init()
 ATTACKER_SIZE = 20
 WIDTH, HEIGHT = 800, 500
@@ -35,7 +36,7 @@ def main():
     pi = pygame.Rect(random.randint(10, 790), 10, 20, 20)
     run = True
     run_count = 0
-    dtext = ""
+    dtext = ''
     while run:
         run_count += 1
         pygame.time.Clock().tick(60)
@@ -71,7 +72,7 @@ def main():
             pi.y = 10
             pi.x = random.randint(10, 790)
         if pi.colliderect(pl):
-            dtext = "You are dead!"
+            dtext = 'You are dead!'
             go = False
         draw_window(pl.x, pl.y, pi.x, pi.y, poisize, point, dtext)
     pygame.QUIT
