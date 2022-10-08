@@ -16,9 +16,7 @@ ITEMRAW = pygame.image.load(os.path.join('meteor.png'))
 ITEM = pygame.transform.scale(ITEMRAW, (ATTACKER_SIZE, ATTACKER_SIZE))
 posx, posy = 100, 100
 SPEED = 5
-PA_BUTTON_RAW = pygame.image.load(os.path.join('playagain.png'))
-PA_BUTTON = pygame.transform.scale(PA_BUTTON_RAW, (30, 30))
-def draw_window(posx, posy, poix, poiy, poisize, point, dtext, pa, padisplay):
+def draw_window(posx, posy, poix, poiy, poisize, point, dtext):
     WIN.fill((20, 20, 20))
     WIN.blit(PLAYER, (posx, posy))
     scroetext = SCORE_FONT.render('Score: ' + str(point), 1, (255, 255, 255))
@@ -27,8 +25,6 @@ def draw_window(posx, posy, poix, poiy, poisize, point, dtext, pa, padisplay):
     WIN.blit(item, (poix, poiy))
     deathtext = DEATH_FONT.render(dtext, 1, (255, 255, 255))
     WIN.blit(deathtext, (WIDTH/2 - scroetext.get_width() - 70, HEIGHT/2 - scroetext.get_height()))
-    if padisplay == True:
-        WIN.blit(PA_BUTTON, (pa.x, pa.y))
     pygame.display.update()
 
 def main():
@@ -38,11 +34,9 @@ def main():
     go = True
     pl = pygame.Rect(100, 300, 150, 20)
     pi = pygame.Rect(random.randint(10, 790), 10, 20, 20)
-    pa = pygame.Rect(5, 5, 30, 30)
     run = True
     run_count = 0
     dtext = ''
-    padisplay = False
     while run:
         run_count += 1
         pygame.time.Clock().tick(60)
@@ -66,18 +60,6 @@ def main():
             point = 0
             poisize = ATTACKER_SIZE
             pi.x = random.randint(10, 790)
-            padisplay = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            x, y = event.pos
-            if PA_BUTTON.get_rect().collidepoint(x, y):
-                run_count = 1
-                go = True
-                dtext = ""
-                pi.y = 10
-                point = 0
-                poisize = ATTACKER_SIZE
-                pi.x = random.randint(10, 790)
-                padisplay = False
         if keys_pressed[pygame.K_ESCAPE]:
             quit()
         if run_count % 600 == 0 and go == True:
@@ -92,8 +74,7 @@ def main():
         if pi.colliderect(pl):
             dtext = 'You are dead!'
             go = False
-            padisplay = True
-        draw_window(pl.x, pl.y, pi.x, pi.y, poisize, point, dtext, pa, padisplay)
+        draw_window(pl.x, pl.y, pi.x, pi.y, poisize, point, dtext)
     pygame.QUIT
 
 if __name__ == "__main__":
